@@ -7,8 +7,9 @@ module.exports = React.createClass({
 	render: function() {
 		var descriptionsCss = {
 		};
-		return <div style={descriptionsCss}>{[...this.props.children].map(description => {
-		    return <DescriptionRenderer key={description.key}>{description}</DescriptionRenderer>
+		console.log(this.props.children);
+		return <div style={descriptionsCss}>{this.props.children.map(description => {
+		    return <DescriptionRenderer key={description.key} rerollDescription={this.props.rerollDescription}>{description}</DescriptionRenderer>
 		})}</div>
 	}
 });
