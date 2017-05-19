@@ -24,7 +24,10 @@ module.exports = {
 				key: 4,
 				text: weapon.rollMovement(),
 				reroll: weapon.rollMovement
-			}]
+			}],
+			reroll: function() {
+				return module.exports.getAttack(weapon);
+			},
 		};
 	}
 }

@@ -11,7 +11,7 @@ module.exports = React.createClass({
 					return <DescriptionPartRenderer key={part.key} reRollDescriptionPart={this.props.reRollDescriptionPart} descriptionKey={this.props.children.key}>{part}</DescriptionPartRenderer>
 				})}
 			</div>
-			<span className="reroller"> <a href="#" onClick={() => {this.props.reRollDescription(this.props.children.key)}}>↻</a></span>
+			<span className="reroller"> <a href="#" onClick={() => {this.props.reRollDescription(this.props.children.key, this.props.children)}}>↻</a></span>
 		</div>
 	}
 });

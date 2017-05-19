@@ -15,20 +15,20 @@ var Roller = React.createClass({
 		};
 	},
 	
-	newAttack: function(weapon) {
+	newAttackDescription: function(weapon) {
 		this.setState((previousState, currentProps) => {
 			var descriptions = new Map(previousState.descriptions);
-			var attack = AttackFactory.getAttack(weapon);
-			attack.key = previousState.nextDescriptionKey;
-			descriptions.set(previousState.nextDescriptionKey, attack);
+			var newDescription = AttackFactory.getAttack(weapon);
+			newDescription.key = previousState.nextDescriptionKey;
+			descriptions.set(previousState.nextDescriptionKey, newDescription);
 			return {
 				nextDescriptionKey: previousState.nextDescriptionKey + 1,
 				descriptions: descriptions,
 			};
 		});
 	},
-	reRollDescription: function(descriptionKey) {
-		var newDescription = AttackFactory.getAttack(Weapons.Scimitar);
+	reRollDescription: function(descriptionKey, existingDescription) {
+		var newDescription = existingDescription.reroll();
 		newDescription.key = descriptionKey;
 		this.setState((previousState, currentProps) => {
 			var descriptions = new Map(previousState.descriptions);
@@ -58,7 +58,7 @@ var Roller = React.createClass({
 	
 	render: function() {
 		return <div>
-			<WeaponList newAttack={this.newAttack}>{Object.keys(Weapons).map(key => Weapons[key])}</WeaponList>
+			<WeaponList newAttack={this.newAttackDescription}>{Object.keys(Weapons).map(key => Weapons[key])}</WeaponList>
 			<DescripionsRenderer reRollDescription={this.reRollDescription} reRollDescriptionPart={this.reRollDescriptionPart} >{[...this.state.descriptions.values()]}</DescripionsRenderer>
 		</div>;
 	}
