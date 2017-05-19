@@ -26,10 +26,12 @@
 		}
 
 .description {
+	float: left;
 	position: relative;
 	margin: 5px;
 	padding: 5px;
 	width: 200px;
+	height: 120px;
 	background-color: #eeeeee;
 	border: 1px solid #000000;
 }
