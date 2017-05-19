@@ -39,14 +39,14 @@ var Roller = React.createClass({
 		});
 	},
 	reRollDescriptionPart: function(descriptionKey, partKey) {
-		var newParts = Object.assign([], this.state.descriptions.get(descriptionKey).parts);
+		var existingDescription = this.state.descriptions.get(descriptionKey);
+		var newParts = Object.assign([], existingDescription.parts);
 		newParts[partKey] = Object.assign(Object.assign({}, newParts[partKey]), {
 		            text: newParts[partKey].reroll(),
 		        });
-		var newDescription = {
-			key: descriptionKey,
-			parts: newParts,
-		}
+		var newDescription = Object.assign(Object.assign({}, existingDescription), {
+		            parts: newParts,
+		        });
 		this.setState((previousState, currentProps) => {
 			var descriptions = new Map(previousState.descriptions);
 			descriptions.set(descriptionKey, newDescription);

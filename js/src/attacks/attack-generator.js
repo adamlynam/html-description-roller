@@ -8,12 +8,12 @@ module.exports = {
 				reroll: undefined,
 			},{
 				key: 1,
-				text: weapon.rollMotion() + " ",
+				text: weapon.rollMotion(),
 				reroll: weapon.rollMotion
 			},
 			{
 				key: 2,
-				text: "your ",
+				text: " your ",
 				reroll: undefined,
 			},
 			{
