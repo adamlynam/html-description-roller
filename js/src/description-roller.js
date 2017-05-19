@@ -9,31 +9,48 @@ var DescripionsRenderer = require('./renderers/descriptions');
 var Roller = React.createClass({
 	getInitialState: function() {
 		return {
-			nextAttackKey: "1",
-			attacks: new Map(),
+			nextDescriptionKey: "1",
+			descriptions: new Map(),
 		};
 	},
 	
 	newAttack: function() {
 		this.setState((previousState, currentProps) => {
-			var attacks = new Map(previousState.attacks);
+			var descriptions = new Map(previousState.descriptions);
 			var attack = AttackFactory.getAttack(Weapons.Scimitar);
-			attack.key = previousState.nextAttackKey;
-			attacks.set(previousState.nextAttackKey, attack);
+			attack.key = previousState.nextDescriptionKey;
+			descriptions.set(previousState.nextDescriptionKey, attack);
 			return {
-				nextAttackKey: previousState.nextAttackKey + 1,
-				attacks: attacks,
+				nextDescriptionKey: previousState.nextDescriptionKey + 1,
+				descriptions: descriptions,
 			};
 		});
 	},
-	reRollAttack: function(attackKey) {
-		var newAttack = AttackFactory.getAttack(Weapons.Scimitar);
-		newAttack.key = attackKey;
+	reRollDescription: function(descriptionKey) {
+		var newDescription = AttackFactory.getAttack(Weapons.Scimitar);
+		newDescription.key = descriptionKey;
 		this.setState((previousState, currentProps) => {
-			var attacks = new Map(previousState.attacks);
-			attacks.set(attackKey, newAttack);
+			var descriptions = new Map(previousState.descriptions);
+			descriptions.set(descriptionKey, newDescription);
 			return {
-				attacks: attacks,
+				descriptions: descriptions,
+			};
+		});
+	},
+	reRollDescriptionPart: function(descriptionKey, partKey) {
+		var newParts = Object.assign([], this.state.descriptions.get(descriptionKey).parts);
+		newParts[partKey] = Object.assign(Object.assign({}, newParts[partKey]), {
+		            text: newParts[partKey].reroll(),
+		        });
+		var newDescription = {
+			key: descriptionKey,
+			parts: newParts,
+		}
+		this.setState((previousState, currentProps) => {
+			var descriptions = new Map(previousState.descriptions);
+			descriptions.set(descriptionKey, newDescription);
+			return {
+				descriptions: descriptions,
 			};
 		});
 	},
@@ -41,7 +58,7 @@ var Roller = React.createClass({
 	render: function() {
 		return <div>
 			<input type="button" onClick={this.newAttack} value="New Scimitar Attack" />
-			<DescripionsRenderer rerollDescription={this.reRollAttack} >{[...this.state.attacks.values()]}</DescripionsRenderer>
+			<DescripionsRenderer reRollDescription={this.reRollDescription} reRollDescriptionPart={this.reRollDescriptionPart} >{[...this.state.descriptions.values()]}</DescripionsRenderer>
 		</div>;
 	}
 });
