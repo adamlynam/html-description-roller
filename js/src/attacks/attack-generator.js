@@ -1,6 +1,7 @@
 module.exports = {
 	getAttack: function(weapon) {
 		return {
+			image: weapon.image,
 			parts: [{
 				key: 0,
 				text: "You ",
