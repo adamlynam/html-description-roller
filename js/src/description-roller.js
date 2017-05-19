@@ -4,6 +4,7 @@ var ReactDOM = require('react-dom');
 var Weapons = require('./data/weapons');
 var AttackFactory = require('./attacks/attack-generator');
 
+var WeaponList = require('./renderers/weapon-list');
 var DescripionsRenderer = require('./renderers/descriptions');
 
 var Roller = React.createClass({
@@ -14,10 +15,10 @@ var Roller = React.createClass({
 		};
 	},
 	
-	newAttack: function() {
+	newAttack: function(weapon) {
 		this.setState((previousState, currentProps) => {
 			var descriptions = new Map(previousState.descriptions);
-			var attack = AttackFactory.getAttack(Weapons.Scimitar);
+			var attack = AttackFactory.getAttack(weapon);
 			attack.key = previousState.nextDescriptionKey;
 			descriptions.set(previousState.nextDescriptionKey, attack);
 			return {
@@ -57,7 +58,7 @@ var Roller = React.createClass({
 	
 	render: function() {
 		return <div>
-			<input type="button" onClick={this.newAttack} value="New Scimitar Attack" />
+			<WeaponList newAttack={this.newAttack}>{Object.keys(Weapons).map(key => Weapons[key])}</WeaponList>
 			<DescripionsRenderer reRollDescription={this.reRollDescription} reRollDescriptionPart={this.reRollDescriptionPart} >{[...this.state.descriptions.values()]}</DescripionsRenderer>
 		</div>;
 	}

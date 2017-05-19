@@ -15,8 +15,8 @@ module.exports = React.createClass({
 		};
 		var rerollDescriptionCss = {
 			position: "absolute",
-			top: "5",
-			right: "5",
+			top: "5px",
+			right: "5px",
 		};
 		var rerollDescriptionLinkCss = {
 			textDecoration: "none",

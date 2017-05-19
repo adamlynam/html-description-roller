@@ -1,1 +1,26 @@
-
+.weapon-list {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+.weapon-list:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+	.weapon-list .weapon {
+		float: left;
+		margin: 5px;
+		padding: 5px;
+		width: 100px;
+		background-color: #eeeeee;
+		border: 1px solid #000000;
+	}
+		.weapon-list .weapon img {
+			width: 100px;
+		}
+		.weapon-list .weapon a {
+			display: block;
+			text-align: center;
+			text-decoration: none;
+		}
